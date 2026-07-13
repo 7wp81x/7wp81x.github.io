@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7wp81x (J457)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d0f;
+    --bg-alt: #10151a;
+    --card: #12181d;
+    --border: #212a30;
+    --text: #d5dade;
+    --text-dim: #6f7f88;
+    --accent: #39d97a;
+    --accent-dim: #1f6b41;
+    --amber: #d9a339;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  ::selection { background: var(--accent-dim); color: #fff; }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* Background grid texture */
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    background: rgba(10, 13, 15, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+  }
+  nav .wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+  }
+  .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 15px;
+  }
+  .brand span { color: var(--accent); }
+  .navlinks {
+    display: flex;
+    gap: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .navlinks a { color: var(--text-dim); }
+  .navlinks a:hover { color: var(--accent); text-decoration: none; }
+  .navlinks .num { color: var(--accent-dim); }
+
+  @media (max-width: 640px) {
+    .navlinks { display: none; }
+  }
+
+  /* HERO / TERMINAL */
+  .hero {
+    padding: 80px 0 48px;
+  }
+  .terminal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ff5f56; }
+  .dot.y { background: #ffbd2e; }
+  .dot.g { background: #27c93f; }
+  .term-title {
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .term-body {
+    padding: 24px 20px 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    min-height: 210px;
+  }
+  .term-line { margin-bottom: 6px; white-space: pre-wrap; word-break: break-word; }
+  .prompt { color: var(--accent); }
+  .path { color: var(--amber); }
+  .out { color: var(--text-dim); }
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s step-start infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+  .hero-id .brand-big {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--text);
+  }
+  .hero-id .brand-big span { color: var(--accent); }
+  .hero-id .gh-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .hero-sub {
+    margin-top: 28px;
+    color: var(--text-dim);
+    font-size: 15px;
+    max-width: 620px;
+  }
+
+  /* SECTION SHELL */
+  section { padding: 64px 0; border-top: 1px solid var(--border); }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .eyebrow::before { content: "// "; color: var(--text-dim); }
+  h2 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 700px) { .about-grid { grid-template-columns: 1fr; } }
+
+  .bio p { color: var(--text-dim); margin-bottom: 14px; font-size: 15px; }
+
+  .stack-col h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 18px 0 8px;
+  }
+  .stack-col h3:first-child { margin-top: 0; }
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text);
+    background: var(--bg-alt);
+  }
+  .pill.school { border-color: var(--accent-dim); }
+  .pill.self { border-color: var(--amber); color: var(--amber); }
+
+  /* PROJECTS */
+  .proj-list { display: flex; flex-direction: column; gap: 14px; }
+  .proj {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .proj:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+  .proj-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .proj-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+  }
+  .proj-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .lang-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+  .proj-desc { color: var(--text-dim); font-size: 14px; margin-top: 8px; }
+  .proj-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    margin-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 1px solid var(--accent-dim);
+    border-radius: 6px;
+    color: var(--accent);
+    background: rgba(57, 217, 122, 0.06);
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .proj-link:hover {
+    background: rgba(57, 217, 122, 0.14);
+    border-color: var(--accent);
+    text-decoration: none;
+  }
+  .proj-link::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background-color: var(--accent);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3Cpolyline points='12 5 19 12 12 19'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3Cpolyline points='12 5 19 12 12 19'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: transform .15s ease;
+  }
+  .proj-link:hover::after { transform: translateX(3px); }
+
+  .view-all-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .view-all-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    padding: 10px 22px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    background: var(--card);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .view-all-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .view-all-btn::after {
+    content: "";
+    width: 13px;
+    height: 13px;
+    background-color: var(--text);
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3Cpolyline points='12 5 19 12 12 19'/%3E%3C/svg%3E") center / contain no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='5' y1='12' x2='19' y2='12'/%3E%3Cpolyline points='12 5 19 12 12 19'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: transform .15s ease, background-color .15s ease;
+  }
+  .view-all-btn:hover::after {
+    transform: translateX(3px);
+    background-color: var(--accent);
+  }
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--accent-dim);
+    color: var(--accent);
+    margin-left: 8px;
+  }
+  .badge.priv {
+    border-color: #4a3520;
+    color: var(--amber);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 0 64px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .foot-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .foot-note {
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; opacity: 1; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">7wp81x <span>(J457)</span></div>
+    <div class="navlinks">
+      <a href="#about"><span class="num">01</span> about</a>
+      <a href="#research"><span class="num">02</span> research</a>
+      <a href="#dev"><span class="num">03</span> projects</a>
+      <a href="#contact"><span class="num">04</span> contact</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section class="hero">
+    <div class="hero-top">
+      <img class="avatar" id="ghAvatar" src="https://avatars.githubusercontent.com/u/57308381?v=4" alt="7wp81x avatar" width="56" height="56" loading="lazy">
+      <div class="hero-id">
+        <div class="brand-big">7wp81x <span>(J457)</span></div>
+        <div class="gh-meta" id="ghMeta">synced with github.com/7wp81x</div>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="term-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <div class="term-title">guest@7wp81x: ~</div>
+      </div>
+      <div class="term-body" id="termBody"></div>
+    </div>
+    <p class="hero-sub">Developer working across security research, embedded systems, and full-stack web development — part formally trained, part taught by 3am rabbit holes.</p>
+  </section>
+
+  <section id="about">
+    <div class="eyebrow">about</div>
+    <h2>about</h2>
+    <div class="about-grid">
+      <div class="bio">
+        <p>Developer with a growing focus on security research and embedded systems. Formally learned Laravel and PHP for web development, C# and Java for desktop applications, and Java/Kotlin for Android.</p>
+        <p>Everything else, self-taught: Python, C++, Linux internals, and shell scripting over 6+ years, along with ESP32-based hardware hacking, wireless security tooling, and Node.js for backend and automation projects.</p>
+        <p>I like understanding how things work well enough to build my own tools instead of just using someone else's.</p>
+      </div>
+      <div class="stack-col">
+        <h3>Learned in school</h3>
+        <div class="pills">
+          <span class="pill school">Laravel</span>
+          <span class="pill school">PHP</span>
+          <span class="pill school">C#</span>
+          <span class="pill school">Java</span>
+          <span class="pill school">MySQL</span>
+        </div>
+        <h3>Self-taught (6+ yrs)</h3>
+        <div class="pills">
+          <span class="pill self">Python</span>
+          <span class="pill self">C/C++</span>
+          <span class="pill self">Linux</span>
+          <span class="pill self">Shell</span>
+          <span class="pill self">Node.js</span>
+          <span class="pill self">Kotlin</span>
+          <span class="pill self">ESP32</span>
+        </div>
+        <h3>Tools</h3>
+        <div class="pills">
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">Postman</span>
+          <span class="pill">SQLite</span>
+          <span class="pill">MongoDB</span>
+          <span class="pill">Firebase</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="eyebrow">public repos</div>
+    <h2>security &amp; embedded research</h2>
+    <div class="proj-list">
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">NRSuite <span class="badge">public</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#3572A5"></span>Python · <span data-repo="NRSuite">11★ · 3 forks</span></div>
+        </div>
+        <div class="proj-desc">No-root wireless security testing toolkit for Android, powered by an ESP32 over USB.</div>
+        <a class="proj-link" href="https://github.com/7wp81x/NRSuite" target="_blank" rel="noopener">view repo</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">DuckESP <span class="badge">public</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#f34b7d"></span>C++ · <span data-repo="DuckESP">2★</span></div>
+        </div>
+        <div class="proj-desc">Wireless BLE HID injection tool for ESP32. Executes DuckyScript payloads over Bluetooth LE via a WiFi web UI, with device scanning, cloning, and persistent script storage.</div>
+        <a class="proj-link" href="https://github.com/7wp81x/DuckESP" target="_blank" rel="noopener">view repo</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">PixSploit <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#b07219"></span>Java · Android</div>
+        </div>
+        <div class="proj-desc">Penetration testing toolkit built as an Android app, for personal security research use.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">ESP-Bridge <span class="badge">public</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#3572A5"></span>Python · <span data-repo="ESP-Bridge">2★</span></div>
+        </div>
+        <div class="proj-desc">Framed binary USB bridge protocol for talking to an ESP32 from Termux.</div>
+        <a class="proj-link" href="https://github.com/7wp81x/ESP-Bridge" target="_blank" rel="noopener">view repo</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">BridgeProtocol <span class="badge">public</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#f34b7d"></span>C++ · <span data-repo="BridgeProtocol">1★</span></div>
+        </div>
+        <div class="proj-desc">Framed binary USB bridge protocol for ESP32 ↔ Termux/Linux host communication, no root required.</div>
+        <a class="proj-link" href="https://github.com/7wp81x/BridgeProtocol" target="_blank" rel="noopener">view repo</a>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">Termux-IRBlaster <span class="badge">public</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#3572A5"></span>Python · <span data-repo="Termux-IRBlaster">1★ · 2 forks</span></div>
+        </div>
+        <div class="proj-desc">Infrared transmission utility for Android/Termux, leveraging the Flipper Zero IR database for universal remote functionality and automated signal broadcasting.</div>
+        <a class="proj-link" href="https://github.com/7wp81x/Termux-IRBlaster" target="_blank" rel="noopener">view repo</a>
+      </div>
+
+    </div>
+
+    <div class="view-all-wrap">
+      <a class="view-all-btn" href="https://github.com/7wp81x?tab=repositories" target="_blank" rel="noopener">view all repos on GitHub</a>
+    </div>
+  </section>
+
+  <section id="dev">
+    <div class="eyebrow">private repos</div>
+    <h2>web &amp; app development</h2>
+    <div class="proj-list">
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">TRIKEFLOW-MPUV <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#4F5D95"></span>Laravel + Android</div>
+        </div>
+        <div class="proj-desc">Ticketing system with a Laravel backend and companion Android app. Built for a client — details kept confidential.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">CarRental <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#178600"></span>C#</div>
+        </div>
+        <div class="proj-desc">Car rental management system with real-time GPS tracking, integrating a low-cost Sinotrack GPS device.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">MaidChan <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#f1e05a"></span>Node.js · NLP</div>
+        </div>
+        <div class="proj-desc">AI chatbot for Facebook Messenger built with node-nlp, capable of handling tasks with self-learning/training capabilities.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">PisoPrintServer <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#4F5D95"></span>Laravel</div>
+        </div>
+        <div class="proj-desc">Automatic printing server plug-in built for piso wifi software. Personal-use tool.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">DLServer-PisoFi <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#f1e05a"></span>Node.js</div>
+        </div>
+        <div class="proj-desc">Local cloud file server wired to run on piso wifi servers.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">PetTracker <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#4F5D95"></span>Laravel</div>
+        </div>
+        <div class="proj-desc">Lost-and-found system for pets. Practice project.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">BoardingHouseManagement <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#4F5D95"></span>Laravel</div>
+        </div>
+        <div class="proj-desc">Boarding house management system. Practice project.</div>
+      </div>
+
+      <div class="proj">
+        <div class="proj-head">
+          <div class="proj-name">FastMail <span class="badge priv">private</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#3572A5"></span>Python · Tkinter</div>
+        </div>
+        <div class="proj-desc">Free and fast custom temporary email generator with a simple desktop GUI.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="eyebrow" style="justify-content:center; display:flex;">connect</div>
+    <div class="foot-links">
+      <a href="https://github.com/7wp81x" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://facebook.com/7wp81x" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://youtube.com/@theblixors" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <div class="foot-note">© 2026 7wp81x (J457) — built with plain HTML/CSS/JS, hosted on GitHub Pages.</div>
+  </footer>
+
+</div>
+
+<script>
+  (function () {
+    const lines = [
+      { cmd: "cat focus.txt" },
+      { out: "security research / embedded systems / web dev" },
+      { cmd: "ls skills/" },
+      { out: "laravel  csharp  java  python  cpp  linux  kotlin  esp32" },
+    ];
+
+    const termBody = document.getElementById('termBody');
+    const PROMPT = '<span class="prompt">guest@7wp81x</span>:<span class="path">~</span>$ ';
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function renderStatic() {
+      let html = lines.map(l => l.cmd !== undefined
+        ? `<div class="term-line">${PROMPT}${escapeHtml(l.cmd)}</div>`
+        : `<div class="term-line"><span class="out">${escapeHtml(l.out)}</span></div>`
+      ).join('');
+      html += `<div class="term-line">${PROMPT}<span class="cursor"></span></div>`;
+      termBody.innerHTML = html;
+    }
+
+    function escapeHtml(s) {
+      return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    if (reduceMotion) {
+      renderStatic();
+      return;
+    }
+
+    let li = 0;
+    let activeLineEl = null;
+    let charIndex = 0;
+    let timerId = null;
+
+    function step() {
+      if (li >= lines.length) {
+        const doneLine = document.createElement('div');
+        doneLine.className = 'term-line';
+        doneLine.innerHTML = `${PROMPT}<span class="cursor"></span>`;
+        termBody.appendChild(doneLine);
+        return;
+      }
+
+      const line = lines[li];
+
+      if (line.cmd !== undefined) {
+        if (!activeLineEl) {
+          activeLineEl = document.createElement('div');
+          activeLineEl.className = 'term-line';
+          termBody.appendChild(activeLineEl);
+          charIndex = 0;
+        }
+        charIndex++;
+        const typed = line.cmd.slice(0, charIndex);
+        activeLineEl.innerHTML = `${PROMPT}${escapeHtml(typed)}<span class="cursor"></span>`;
+
+        if (charIndex >= line.cmd.length) {
+          activeLineEl.innerHTML = `${PROMPT}${escapeHtml(line.cmd)}`;
+          activeLineEl = null;
+          li++;
+          timerId = setTimeout(step, 220);
+        } else {
+          timerId = setTimeout(step, 32);
+        }
+      } else {
+        const outLine = document.createElement('div');
+        outLine.className = 'term-line';
+        outLine.innerHTML = `<span class="out">${escapeHtml(line.out)}</span>`;
+        termBody.appendChild(outLine);
+        li++;
+        timerId = setTimeout(step, 320);
+      }
+    }
+
+    step();
+
+    // Safety net: if anything goes wrong, fall back to static render
+    window.addEventListener('error', () => {
+      if (timerId) clearTimeout(timerId);
+      renderStatic();
+    });
+  })();
+
+  // Live GitHub profile sync (avatar, bio, followers)
+  (function () {
+    fetch('https://api.github.com/users/7wp81x')
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        if (!data) return;
+        const avatar = document.getElementById('ghAvatar');
+        const meta = document.getElementById('ghMeta');
+        if (avatar && data.avatar_url) avatar.src = data.avatar_url;
+        if (meta) {
+          const bits = [];
+          if (typeof data.followers === 'number') bits.push(`${data.followers} followers`);
+          if (typeof data.public_repos === 'number') bits.push(`${data.public_repos} public repos`);
+          meta.textContent = bits.length ? bits.join(' · ') : 'synced with github.com/7wp81x';
+        }
+      })
+      .catch(() => {});
+  })();
+
+  // Live GitHub stats (stars / forks) for public repos
+  (function () {
+    const repos = ['NRSuite', 'DuckESP', 'ESP-Bridge', 'BridgeProtocol', 'Termux-IRBlaster'];
+    repos.forEach(repo => {
+      fetch(`https://api.github.com/repos/7wp81x/${repo}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (!data) return;
+          const el = document.querySelector(`[data-repo="${repo}"]`);
+          if (el) {
+            el.textContent = `${data.stargazers_count}★ · ${data.forks_count} forks`;
+          }
+        })
+        .catch(() => {});
+    });
+  })();
+</script>
+
+</body>
+</html>
