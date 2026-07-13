@@ -84,6 +84,7 @@
     font-weight: 700;
     color: var(--text);
     font-size: 15px;
+    flex: 0 0 auto;
   }
   .brand span { color: var(--accent); }
   .navlinks {
@@ -97,7 +98,24 @@
   .navlinks .num { color: var(--accent-dim); }
 
   @media (max-width: 640px) {
-    .navlinks { display: none; }
+    .navlinks {
+      display: flex;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 8px;
+      max-width: 60vw;
+    }
+    .navlinks::-webkit-scrollbar { display: none; }
+    .navlinks a {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+      white-space: nowrap;
+    }
+    .navlinks a:hover { text-decoration: none; }
   }
 
   /* HERO / TERMINAL */
@@ -154,7 +172,16 @@
     align-items: center;
     gap: 16px;
     margin-bottom: 20px;
+    text-decoration: none;
+    width: fit-content;
+    padding: 4px;
+    border-radius: 10px;
+    transition: background .15s ease;
   }
+  .hero-top:hover { background: var(--card); text-decoration: none; }
+  .hero-top:hover .brand-big { color: var(--accent); }
+  .hero-top .avatar { transition: transform .15s ease; }
+  .hero-top:hover .avatar { transform: scale(1.04); }
   .avatar {
     width: 56px;
     height: 56px;
@@ -167,6 +194,7 @@
     font-weight: 800;
     font-size: 20px;
     color: var(--text);
+    transition: color .15s ease;
   }
   .hero-id .brand-big span { color: var(--accent); }
   .hero-id .gh-meta {
@@ -184,6 +212,58 @@
   }
 
   /* SECTION SHELL */
+  .toolkit-collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+  }
+  .toolkit-collapse.open { max-height: 2000px; }
+
+  .toolkit-toggle {
+    margin-top: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-dim);
+    background: transparent;
+    border: 1px dashed var(--border);
+    border-radius: 6px;
+    padding: 8px 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .toolkit-toggle:hover { color: var(--accent); border-color: var(--accent-dim); }
+  .toolkit-toggle .chev { transition: transform .2s ease; }
+  .toolkit-toggle.open .chev { transform: rotate(180deg); }
+
+  .hw-block {
+    margin: -8px 0 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 680px;
+  }
+  .hw-row {
+    display: flex;
+    gap: 14px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+  .hw-label {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    flex: 0 0 130px;
+    font-size: 12px;
+    padding-top: 1px;
+  }
+  .hw-val { color: var(--text-dim); }
+  @media (max-width: 640px) {
+    .hw-row { flex-direction: column; gap: 2px; }
+    .hw-label { flex: none; }
+  }
+
   section { padding: 64px 0; border-top: 1px solid var(--border); }
   .eyebrow {
     font-family: 'JetBrains Mono', monospace;
@@ -232,6 +312,8 @@
   }
   .pill.school { border-color: var(--accent-dim); }
   .pill.self { border-color: var(--amber); color: var(--amber); }
+  .pill.sec { border-color: #d9556b; color: #d9718a; }
+  .pill.offense { border-color: #3ba7c9; color: #4fbcdc; }
 
   /* PROJECTS */
   .proj-list { display: flex; flex-direction: column; gap: 14px; }
@@ -347,6 +429,28 @@
   }
 
   /* FOOTER */
+  /* ACTIVITY FEED */
+  .activity-list { display: flex; flex-direction: column; gap: 2px; }
+  .activity-item {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    padding: 10px 14px;
+    border-left: 2px solid var(--border);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+  }
+  .activity-item:hover { border-left-color: var(--accent); background: var(--bg-alt); }
+  .activity-time { color: var(--text-dim); font-size: 11px; white-space: nowrap; min-width: 68px; }
+  .activity-text { color: var(--text); }
+  .activity-text .repo-name { color: var(--accent); }
+  .activity-loading, .activity-empty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 10px 14px;
+  }
+
   footer {
     padding: 48px 0 64px;
     border-top: 1px solid var(--border);
@@ -381,9 +485,11 @@
     <div class="brand">7wp81x <span>(J457)</span></div>
     <div class="navlinks">
       <a href="#about"><span class="num">01</span> about</a>
-      <a href="#research"><span class="num">02</span> research</a>
-      <a href="#dev"><span class="num">03</span> projects</a>
-      <a href="#contact"><span class="num">04</span> contact</a>
+      <a href="#security"><span class="num">02</span> security</a>
+      <a href="#research"><span class="num">03</span> research</a>
+      <a href="#dev"><span class="num">04</span> projects</a>
+      <a href="#activity"><span class="num">05</span> activity</a>
+      <a href="#contact"><span class="num">06</span> contact</a>
     </div>
   </div>
 </nav>
@@ -391,13 +497,13 @@
 <div class="wrap">
 
   <section class="hero">
-    <div class="hero-top">
+    <a class="hero-top" href="https://github.com/7wp81x" target="_blank" rel="noopener" aria-label="Visit 7wp81x on GitHub">
       <img class="avatar" id="ghAvatar" src="https://avatars.githubusercontent.com/u/57308381?v=4" alt="7wp81x avatar" width="56" height="56" loading="lazy">
       <div class="hero-id">
         <div class="brand-big">7wp81x <span>(J457)</span></div>
         <div class="gh-meta" id="ghMeta">synced with github.com/7wp81x</div>
       </div>
-    </div>
+    </a>
     <div class="terminal">
       <div class="term-bar">
         <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
@@ -428,6 +534,8 @@
         </div>
         <h3>Self-taught (6+ yrs)</h3>
         <div class="pills">
+          <span class="pill self">Penetration Testing</span>
+          <span class="pill self">Red Teaming</span>
           <span class="pill self">Python</span>
           <span class="pill self">C/C++</span>
           <span class="pill self">Linux</span>
@@ -435,8 +543,21 @@
           <span class="pill self">Node.js</span>
           <span class="pill self">Kotlin</span>
           <span class="pill self">ESP32</span>
+          <span class="pill self">Django</span>
+          <span class="pill self">Flask</span>
+          <span class="pill self">.NET</span>
+          <span class="pill self">Serial/USB Protocols</span>
         </div>
-        <h3>Tools</h3>
+        <h3>Editors &amp; IDEs</h3>
+        <div class="pills">
+          <span class="pill">VS Code</span>
+          <span class="pill">Android Studio</span>
+          <span class="pill">Arduino IDE</span>
+          <span class="pill">PlatformIO</span>
+          <span class="pill">NetBeans</span>
+          <span class="pill">VSCodium</span>
+        </div>
+        <h3>General Tools</h3>
         <div class="pills">
           <span class="pill">Git</span>
           <span class="pill">GitHub</span>
@@ -444,7 +565,132 @@
           <span class="pill">SQLite</span>
           <span class="pill">MongoDB</span>
           <span class="pill">Firebase</span>
+          <span class="pill">Tor</span>
+          <span class="pill">cURL</span>
+          <span class="pill">npm</span>
+          <span class="pill">pip</span>
+          <span class="pill">Custom Tool Dev</span>
+          <span class="pill">Linux Terminal / Shell</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="security">
+    <div class="eyebrow">self-taught</div>
+    <h2>security &amp; offensive tooling</h2>
+    <div class="about-grid">
+      <div class="bio">
+        <p>Most of my security knowledge comes from hands-on practice rather than formal courses — working through OWASP Top 10 categories, building and breaking tools on ESP32 hardware, and treating a no-root, non-jailbroken Android phone via Termux as a deliberate constraint rather than a limitation.</p>
+        <p>Comfortable across network penetration testing, firewall evasion, pivoting, AV evasion, ethical malware development, firmware reverse engineering, and exploit development — particularly API and injection vulnerabilities with high-impact potential. Binary/low-level exploitation (protection bypasses, etc.) is the area I'm still actively building depth in.</p>
+        <p>When a tool I need doesn't exist, I build it — NRSuite, DuckESP, ESP-Bridge, and BridgeProtocol all started that way. Also contributed to <a href="https://github.com/7wp81x/Bruce" target="_blank" rel="noopener">Bruce</a>, a predatory ESP32 firmware project.</p>
+        <p>Additional offensive tooling developed for private research and testing — not publicly distributed.</p>
+        <p>Termux is basically a second daily driver at this point — I've pushed it to the point of running full workflows without ever touching a laptop.</p>
+        <p class="proj-desc" style="margin-top:6px;">Two responsibly-disclosed findings on a nationwide vendor's systems, kept intentionally vague out of respect for the vendor:</p>
+        <ul style="color:var(--text-dim); font-size:14px; padding-left:18px; margin-top:6px; display:flex; flex-direction:column; gap:4px;">
+          <li>Unauthenticated admin account creation vulnerability (2021)</li>
+          <li>Critical remote code execution via command injection, leading to full system compromise with root privileges (2022) — reported privately, no public details disclosed</li>
+        </ul>
+      </div>
+      <div class="stack-col">
+        <h3>Self-Taught Security Practice</h3>
+        <div class="pills">
+          <span class="pill sec">Network Penetration Testing</span>
+          <span class="pill sec">Web &amp; API Penetration Testing</span>
+          <span class="pill sec">Wireless Security (WiFi/BLE)</span>
+          <span class="pill sec">Security Tool Development</span>
+          <span class="pill sec">Firmware Development</span>
+          <span class="pill sec">Firmware Reverse Engineering</span>
+          <span class="pill sec">OWASP Top 10</span>
+          <span class="pill sec">Injection Attacks</span>
+          <span class="pill sec">Firewall Evasion</span>
+          <span class="pill sec">Network Pivoting</span>
+          <span class="pill sec">AV Evasion</span>
+          <span class="pill sec">Exploit Development</span>
+        </div>
+        <h3>Offensive Tooling</h3>
+        <div class="pills">
+          <span class="pill offense">Metasploit</span>
+          <span class="pill offense">Burp Suite</span>
+          <span class="pill offense">Wireshark</span>
+          <span class="pill offense">Nmap</span>
+          <span class="pill offense">Ghidra</span>
+          <span class="pill offense">Hashcat</span>
+        </div>
+
+        <div id="toolkitExtra" class="toolkit-collapse">
+          <h3>More Tooling</h3>
+          <div class="pills">
+            <span class="pill offense">Nikto</span>
+            <span class="pill offense">Aircrack-ng</span>
+            <span class="pill offense">OWASP ZAP</span>
+            <span class="pill offense">Ettercap</span>
+            <span class="pill offense">Bettercap</span>
+            <span class="pill offense">Kismet</span>
+            <span class="pill offense">Kali NetHunter</span>
+          </div>
+          <h3>Recon / OSINT</h3>
+          <div class="pills">
+            <span class="pill offense">Shodan</span>
+            <span class="pill offense">theHarvester</span>
+            <span class="pill offense">Sublist3r</span>
+            <span class="pill offense">Amass</span>
+          </div>
+          <h3>Password &amp; Auth Attacks</h3>
+          <div class="pills">
+            <span class="pill offense">Hydra</span>
+            <span class="pill offense">Medusa</span>
+            <span class="pill offense">John the Ripper</span>
+          </div>
+          <h3>Reverse Engineering</h3>
+          <div class="pills">
+            <span class="pill offense">Binwalk</span>
+            <span class="pill offense">GDB</span>
+            <span class="pill offense">PwnDbg</span>
+            <span class="pill offense">radare2</span>
+            <span class="pill offense">apktool</span>
+            <span class="pill offense">SquashFS Tools</span>
+            <span class="pill offense">dd</span>
+          </div>
+          <h3>Embedded &amp; Networking</h3>
+          <div class="pills">
+            <span class="pill offense">ESP32 Bus Pirate</span>
+            <span class="pill offense">esptool.py</span>
+            <span class="pill offense">UART / JTAG Debugging</span>
+            <span class="pill offense">tcpdump</span>
+            <span class="pill offense">Netcat</span>
+            <span class="pill offense">iptables / Firewall Config</span>
+          </div>
+          <h3>Linux Distros</h3>
+          <div class="pills">
+            <span class="pill">Kali Linux</span>
+            <span class="pill">Arch Linux</span>
+            <span class="pill">Linux Mint</span>
+            <span class="pill">Ubuntu</span>
+            <span class="pill">Termux</span>
+          </div>
+          <h3>Python Libraries</h3>
+          <div class="pills">
+            <span class="pill self">Scapy</span>
+            <span class="pill self">Socket</span>
+            <span class="pill self">Requests</span>
+            <span class="pill self">BeautifulSoup</span>
+            <span class="pill self">Selenium</span>
+            <span class="pill self">Scikit-learn</span>
+            <span class="pill self">TensorFlow</span>
+            <span class="pill self">Pandas</span>
+            <span class="pill self">NumPy</span>
+          </div>
+          <h3>Practice Platforms</h3>
+          <div class="pills">
+            <span class="pill offense">HackTheBox</span>
+            <span class="pill offense">TryHackMe</span>
+          </div>
+        </div>
+
+        <button class="toolkit-toggle" id="toolkitToggle" aria-expanded="false" aria-controls="toolkitExtra">
+          show full toolkit <span class="chev">▾</span>
+        </button>
       </div>
     </div>
   </section>
@@ -452,6 +698,14 @@
   <section id="research">
     <div class="eyebrow">public repos</div>
     <h2>security &amp; embedded research</h2>
+    <div class="hw-block">
+      <div class="hw-row"><span class="hw-label">Microcontrollers</span><span class="hw-val">ESP32 DevKits (WROOM &amp; others), ESP32-CYD, ESP8266, ESP8266-01S, ESP32-S3 / Super Mini, ESP32-C3 / Super Mini, Arduino Uno</span></div>
+      <div class="hw-row"><span class="hw-label">Dev Boards</span><span class="hw-val">Adafruit Feather S3 TFT, Cardputer Advanced, M5StickS3</span></div>
+      <div class="hw-row"><span class="hw-label">SBCs</span><span class="hw-val">Raspberry Pi Pico, Raspberry Pi 3B+, Orange Pi One</span></div>
+      <div class="hw-row"><span class="hw-label">GPS Modules</span><span class="hw-val">AG9, Sinotrack</span></div>
+      <div class="hw-row"><span class="hw-label">RF / Wireless</span><span class="hw-val">CC1101, NRF24</span></div>
+      <div class="hw-row"><span class="hw-label">RFID</span><span class="hw-val">PN532, MFRC522</span></div>
+    </div>
     <div class="proj-list">
 
       <div class="proj">
@@ -586,14 +840,31 @@
     </div>
   </section>
 
+  <section id="activity">
+    <div class="eyebrow">live from github</div>
+    <h2>recent activity</h2>
+    <div class="activity-list" id="activityList">
+      <div class="activity-loading">fetching recent activity…</div>
+    </div>
+  </section>
+
   <footer id="contact">
     <div class="eyebrow" style="justify-content:center; display:flex;">connect</div>
     <div class="foot-links">
-      <a href="https://github.com/7wp81x" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://facebook.com/7wp81x" target="_blank" rel="noopener">Facebook</a>
-      <a href="https://youtube.com/@theblixors" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://github.com/7wp81x" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <a href="https://facebook.com/7wp81x" target="_blank" rel="noopener" aria-label="Facebook">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.51 17.52 2 12 2S2 6.51 2 12.06C2 17.08 5.66 21.21 10.44 22v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22C18.34 21.21 22 17.08 22 12.06z"/></svg>
+        <span>Facebook</span>
+      </a>
+      <a href="https://youtube.com/@theblixors" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+        <span>YouTube</span>
+      </a>
     </div>
-    <div class="foot-note">© 2026 7wp81x (J457) — built with plain HTML/CSS/JS, hosted on GitHub Pages.</div>
+    <div class="foot-note">© 2026 7wp81x (J457), hosted on GitHub Pages.</div>
   </footer>
 
 </div>
@@ -716,6 +987,86 @@
           }
         })
         .catch(() => {});
+    });
+  })();
+  // Live recent activity feed (public events, no auth needed)
+  (function () {
+    const list = document.getElementById('activityList');
+    if (!list) return;
+
+    function timeAgo(dateStr) {
+      const diffMs = Date.now() - new Date(dateStr).getTime();
+      const mins = Math.floor(diffMs / 60000);
+      if (mins < 60) return `${mins}m ago`;
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return `${hrs}h ago`;
+      const days = Math.floor(hrs / 24);
+      if (days < 30) return `${days}d ago`;
+      const months = Math.floor(days / 30);
+      return `${months}mo ago`;
+    }
+
+    function describeEvent(ev) {
+      const repo = ev.repo ? ev.repo.name.split('/')[1] : 'repo';
+      const repoSpan = `<span class="repo-name">${repo}</span>`;
+      switch (ev.type) {
+        case 'PushEvent': {
+          const n = ev.payload && ev.payload.commits ? ev.payload.commits.length : 1;
+          return `pushed ${n} commit${n !== 1 ? 's' : ''} to ${repoSpan}`;
+        }
+        case 'CreateEvent':
+          return `created ${ev.payload.ref_type} ${ev.payload.ref ? `<em>${ev.payload.ref}</em> ` : ''}on ${repoSpan}`;
+        case 'PullRequestEvent':
+          return `${ev.payload.action} a pull request on ${repoSpan}`;
+        case 'IssuesEvent':
+          return `${ev.payload.action} an issue on ${repoSpan}`;
+        case 'IssueCommentEvent':
+          return `commented on an issue in ${repoSpan}`;
+        case 'WatchEvent':
+          return `starred ${repoSpan}`;
+        case 'ForkEvent':
+          return `forked ${repoSpan}`;
+        case 'PublicEvent':
+          return `made ${repoSpan} public`;
+        case 'ReleaseEvent':
+          return `published a release on ${repoSpan}`;
+        case 'DeleteEvent':
+          return `deleted ${ev.payload.ref_type} on ${repoSpan}`;
+        default:
+          return `did something on ${repoSpan}`;
+      }
+    }
+
+    fetch('https://api.github.com/users/7wp81x/events/public?per_page=10')
+      .then(r => r.ok ? r.json() : Promise.reject())
+      .then(events => {
+        if (!Array.isArray(events) || events.length === 0) {
+          list.innerHTML = '<div class="activity-empty">no recent public activity.</div>';
+          return;
+        }
+        list.innerHTML = events.slice(0, 10).map(ev => `
+          <div class="activity-item">
+            <span class="activity-time">${timeAgo(ev.created_at)}</span>
+            <span class="activity-text">${describeEvent(ev)}</span>
+          </div>
+        `).join('');
+      })
+      .catch(() => {
+        list.innerHTML = '<div class="activity-empty">couldn\'t load activity right now — check back later.</div>';
+      });
+  })();
+  // Toolkit show-more toggle
+  (function () {
+    const btn = document.getElementById('toolkitToggle');
+    const panel = document.getElementById('toolkitExtra');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', String(isOpen));
+      btn.innerHTML = isOpen
+        ? 'show less <span class="chev">▾</span>'
+        : 'show full toolkit <span class="chev">▾</span>';
     });
   })();
 </script>
