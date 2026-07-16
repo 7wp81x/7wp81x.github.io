@@ -511,7 +511,7 @@
       </div>
       <div class="term-body" id="termBody"></div>
     </div>
-    <p class="hero-sub">Developer working across security research, embedded systems, and full-stack web development — part formally trained, part taught by 3am rabbit holes.</p>
+    <p class="hero-sub">Full-stack developer and security researcher — I build the systems in school (Laravel, C#, Java) and take them apart on my own time (Python, embedded, offensive security). Same curiosity, two directions.</p>
   </section>
 
   <section id="about">
@@ -519,12 +519,12 @@
     <h2>about</h2>
     <div class="about-grid">
       <div class="bio">
-        <p>Developer with a growing focus on security research and embedded systems. Formally learned Laravel and PHP for web development, C# and Java for desktop applications, and Java/Kotlin for Android.</p>
-        <p>Everything else, self-taught: Python, C++, Linux internals, and shell scripting over 6+ years, along with ESP32-based hardware hacking, wireless security tooling, and Node.js for backend and automation projects.</p>
-        <p>I like understanding how things work well enough to build my own tools instead of just using someone else's.</p>
+        <p>I build software on both sides of the fence — shipping features and trying to break them. Formal training gave me Laravel and PHP for the web, C# and Java for desktop, Java/Kotlin for Android. Outside class, I picked up Python, C/C++, and Linux over the past 6+ years, largely by pointing them at ESP32 hardware and wireless protocols.</p>
+        <p>The two sides feed each other more than people expect — writing the API makes me better at breaking one, and breaking enough of them has made me a more careful engineer. Most of what I know about security came from CTFs (HackTheBox, TryHackMe) and building my own tools when the existing ones didn't fit what I needed.</p>
+        <p>Day to day that's a mix of client projects in Laravel/C#, personal embedded builds on ESP32, and security practice in a home lab — all logged below. Linux Mint is my daily driver, with Docker, Apache/Nginx, and MariaDB for local dev; deployment has ranged from a Raspberry Pi 3B+ running Nginx to full VPS setups, depending on what the project needs.</p>
       </div>
       <div class="stack-col">
-        <h3>Learned in school</h3>
+        <h3>Formal training</h3>
         <div class="pills">
           <span class="pill school">Laravel</span>
           <span class="pill school">PHP</span>
@@ -534,10 +534,10 @@
         </div>
         <h3>Self-taught (6+ yrs)</h3>
         <div class="pills">
-          <span class="pill self">Penetration Testing</span>
-          <span class="pill self">Red Teaming</span>
           <span class="pill self">Python</span>
           <span class="pill self">C/C++</span>
+          <span class="pill self">JavaScript</span>
+          <span class="pill self">HTML/CSS</span>
           <span class="pill self">Linux</span>
           <span class="pill self">Shell</span>
           <span class="pill self">Node.js</span>
@@ -548,20 +548,28 @@
           <span class="pill self">.NET</span>
           <span class="pill self">Serial/USB Protocols</span>
         </div>
+        <p style="font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--text-dim); margin-top:2px;">security practice lives in its own section below ↓</p>
+        <h3>Local Dev Environment</h3>
+        <div class="pills">
+          <span class="pill">Linux Mint (daily driver)</span>
+          <span class="pill">Docker</span>
+          <span class="pill">Apache</span>
+          <span class="pill">Nginx</span>
+          <span class="pill">MariaDB</span>
+          <span class="pill">Composer</span>
+        </div>
         <h3>Editors &amp; IDEs</h3>
         <div class="pills">
           <span class="pill">VS Code</span>
           <span class="pill">Android Studio</span>
-          <span class="pill">Arduino IDE</span>
           <span class="pill">PlatformIO</span>
-          <span class="pill">NetBeans</span>
-          <span class="pill">VSCodium</span>
         </div>
         <h3>General Tools</h3>
         <div class="pills">
           <span class="pill">Git</span>
           <span class="pill">GitHub</span>
           <span class="pill">Postman</span>
+          <span class="pill">Swagger</span>
           <span class="pill">SQLite</span>
           <span class="pill">MongoDB</span>
           <span class="pill">Firebase</span>
@@ -569,8 +577,7 @@
           <span class="pill">cURL</span>
           <span class="pill">npm</span>
           <span class="pill">pip</span>
-          <span class="pill">Custom Tool Dev</span>
-          <span class="pill">Linux Terminal / Shell</span>
+          <span class="pill">apt</span>
         </div>
       </div>
     </div>
@@ -581,15 +588,14 @@
     <h2>security &amp; offensive tooling</h2>
     <div class="about-grid">
       <div class="bio">
-        <p>Most of my security knowledge comes from hands-on practice rather than formal courses — working through OWASP Top 10 categories, building and breaking tools on ESP32 hardware, and treating a no-root, non-jailbroken Android phone via Termux as a deliberate constraint rather than a limitation.</p>
-        <p>Comfortable across network penetration testing, firewall evasion, pivoting, AV evasion, ethical malware development, firmware reverse engineering, and exploit development — particularly API and injection vulnerabilities with high-impact potential. Binary/low-level exploitation (protection bypasses, etc.) is the area I'm still actively building depth in.</p>
-        <p>When a tool I need doesn't exist, I build it — NRSuite, DuckESP, ESP-Bridge, and BridgeProtocol all started that way. Also contributed to <a href="https://github.com/7wp81x/Bruce" target="_blank" rel="noopener">Bruce</a>, a predatory ESP32 firmware project.</p>
-        <p>Additional offensive tooling developed for private research and testing — not publicly distributed.</p>
-        <p>Termux is basically a second daily driver at this point — I've pushed it to the point of running full workflows without ever touching a laptop.</p>
-        <p class="proj-desc" style="margin-top:6px;">Two responsibly-disclosed findings on a nationwide vendor's systems, kept intentionally vague out of respect for the vendor:</p>
+        <p>This started as "how do I break the apps I build" and grew from there. Most of it is self-taught and hands-on: working through OWASP Top 10 categories against my own projects, practicing on HackTheBox and TryHackMe, and building/breaking tools on ESP32 hardware. I keep a no-root, non-jailbroken Android phone running Termux as a deliberate constraint — if a technique only works with root, I haven't really learned it yet.</p>
+        <p>I'm comfortable with network penetration testing, firewall evasion and pivoting, firmware reverse engineering, and exploit development — mostly API and injection vulnerabilities, since that's where my dev background gives me an edge. Binary/low-level exploitation is the area I'm still actively building depth in. All of this is practiced in my own lab, on CTF platforms, or with explicit authorization — never against systems I don't have permission to test.</p>
+        <p>When a tool I need doesn't exist, I build it — NRSuite, DuckESP, ESP-Bridge, Termux-ESP-Flasher, and BridgeProtocol all started that way. I've also contributed to <a href="https://github.com/7wp81x/Bruce" target="_blank" rel="noopener">Bruce</a>, an established open-source red-team firmware project for ESP32 devices (AGPL-licensed, built for authorized security testing).</p>
+        <p>Termux is basically a second daily driver at this point — I've pushed it to the point of running full workflows without ever touching a laptop, which usually surprises people until they see it.</p>
+        <p class="proj-desc" style="margin-top:6px;">Two findings reported through private/responsible disclosure to a nationwide retail-tech vendor. Details below are deliberately high-level — no exploit code, endpoints, or vendor name — out of respect for the disclosure agreement:</p>
         <ul style="color:var(--text-dim); font-size:14px; padding-left:18px; margin-top:6px; display:flex; flex-direction:column; gap:4px;">
-          <li>Unauthenticated admin account creation vulnerability (2021)</li>
-          <li>Critical remote code execution via command injection, leading to full system compromise with root privileges (2022) — reported privately, no public details disclosed</li>
+          <li>Unauthenticated admin account creation vulnerability (2021) — reported and acknowledged by the vendor's team</li>
+          <li>Critical remote code execution via command injection, leading to full system compromise with root privileges (2022) — reported privately, patched, no public details disclosed</li>
         </ul>
       </div>
       <div class="stack-col">
@@ -617,30 +623,22 @@
           <span class="pill offense">Ghidra</span>
           <span class="pill offense">Hashcat</span>
         </div>
+        <h3>Practice Platforms</h3>
+        <div class="pills">
+          <span class="pill offense">HackTheBox</span>
+          <span class="pill offense">TryHackMe</span>
+        </div>
 
         <div id="toolkitExtra" class="toolkit-collapse">
           <h3>More Tooling</h3>
           <div class="pills">
-            <span class="pill offense">Nikto</span>
-            <span class="pill offense">Aircrack-ng</span>
             <span class="pill offense">OWASP ZAP</span>
-            <span class="pill offense">Ettercap</span>
-            <span class="pill offense">Bettercap</span>
-            <span class="pill offense">Kismet</span>
-            <span class="pill offense">Kali NetHunter</span>
+            <span class="pill offense">Aircrack-ng</span>
           </div>
           <h3>Recon / OSINT</h3>
           <div class="pills">
             <span class="pill offense">Shodan</span>
             <span class="pill offense">theHarvester</span>
-            <span class="pill offense">Sublist3r</span>
-            <span class="pill offense">Amass</span>
-          </div>
-          <h3>Password &amp; Auth Attacks</h3>
-          <div class="pills">
-            <span class="pill offense">Hydra</span>
-            <span class="pill offense">Medusa</span>
-            <span class="pill offense">John the Ripper</span>
           </div>
           <h3>Reverse Engineering</h3>
           <div class="pills">
@@ -676,15 +674,8 @@
             <span class="pill self">Requests</span>
             <span class="pill self">BeautifulSoup</span>
             <span class="pill self">Selenium</span>
-            <span class="pill self">Scikit-learn</span>
-            <span class="pill self">TensorFlow</span>
             <span class="pill self">Pandas</span>
             <span class="pill self">NumPy</span>
-          </div>
-          <h3>Practice Platforms</h3>
-          <div class="pills">
-            <span class="pill offense">HackTheBox</span>
-            <span class="pill offense">TryHackMe</span>
           </div>
         </div>
 
@@ -728,10 +719,11 @@
 
       <div class="proj">
         <div class="proj-head">
-          <div class="proj-name">PixSploit <span class="badge priv">private</span></div>
-          <div class="proj-meta"><span class="lang-dot" style="background:#b07219"></span>Java · Android</div>
+          <div class="proj-name">Termux-ESP-Flasher <span class="badge">public</span></div>
+          <div class="proj-meta"><span class="lang-dot" style="background:#3572A5"></span>Python · <span data-repo="Termux-ESP-Flasher">★</span></div>
         </div>
-        <div class="proj-desc">Penetration testing toolkit built as an Android app, for personal security research use.</div>
+        <div class="proj-desc">Termux-native .bin flasher for ESP32 boards — no root, no esptool.py subprocess, no pyserial. Talks straight to USB endpoints and bridge-chip vendor registers for the no-root-Termux gap esptool's pyserial transport can't reach.</div>
+        <a class="proj-link" href="https://github.com/7wp81x/Termux-ESP-Flasher" target="_blank" rel="noopener">view repo</a>
       </div>
 
       <div class="proj">
@@ -742,6 +734,8 @@
         <div class="proj-desc">Framed binary USB bridge protocol for talking to an ESP32 from Termux.</div>
         <a class="proj-link" href="https://github.com/7wp81x/ESP-Bridge" target="_blank" rel="noopener">view repo</a>
       </div>
+
+      
 
       <div class="proj">
         <div class="proj-head">
@@ -771,6 +765,7 @@
   <section id="dev">
     <div class="eyebrow">private repos</div>
     <h2>web &amp; app development</h2>
+    <p style="color:var(--text-dim); font-size:14px; max-width:620px; margin:-14px 0 20px;">Client and practice work — mostly private repos since these were built for real use, not portfolios. Same instincts as the security work above: think about how it fails before shipping it.</p>
     <div class="proj-list">
 
       <div class="proj">
@@ -873,7 +868,7 @@
   (function () {
     const lines = [
       { cmd: "cat focus.txt" },
-      { out: "security research / embedded systems / web dev" },
+      { out: "web dev / embedded systems / security research" },
       { cmd: "ls skills/" },
       { out: "laravel  csharp  java  python  cpp  linux  kotlin  esp32" },
     ];
@@ -975,7 +970,7 @@
 
   // Live GitHub stats (stars / forks) for public repos
   (function () {
-    const repos = ['NRSuite', 'DuckESP', 'ESP-Bridge', 'BridgeProtocol', 'Termux-IRBlaster'];
+    const repos = ['NRSuite', 'DuckESP', 'ESP-Bridge', 'Termux-ESP-Flasher', 'BridgeProtocol', 'Termux-IRBlaster'];
     repos.forEach(repo => {
       fetch(`https://api.github.com/repos/7wp81x/${repo}`)
         .then(r => r.ok ? r.json() : null)
